@@ -98,9 +98,9 @@ WSGI_APPLICATION = 'leaderboard.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'leaderboard',
+        'NAME': 'd5smfjqrv3f94e',
         'USER': 'hgweldbspssamm',
-        'PASSWORD': 'hgweldbspssamm',
+        'PASSWORD': '4939c17c19617872431b943b6e321d248f9875bf29874fa94ba2704c1a73cbf3',
         'HOST': 'ec2-174-129-33-75.compute-1.amazonaws.com',
         'PORT': '5432',
     }
