@@ -99,10 +99,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'leaderboard',
-        'USER': 'pablocs',
-        'PASSWORD': 'infinitum',
-        'HOST': '',
-        'PORT': '',
+        'USER': 'hgweldbspssamm',
+        'PASSWORD': 'hgweldbspssamm',
+        'HOST': 'ec2-174-129-33-75.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
