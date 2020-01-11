@@ -62,8 +62,6 @@ def get_leaderboard(request, lid):
 @csrf_exempt
 @api_view(['GET'])
 def list_leaderboards(request, user_id):
-    # import pdb; pdb.set_trace()
-    # user_id = 5
     user = User.objects.get(id=user_id)
     custom_user = user.custom_user
     teams = Team.objects.filter(players__in=[custom_user])
