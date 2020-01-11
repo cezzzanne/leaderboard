@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from .models import CustomUser, Team, Leaderboard, UserScore
-from .serializers import LeaderboardSerializer
+from .serializers import LeaderboardSerializer, LeaderboardIDSerializer
 
 
 @csrf_exempt
@@ -58,3 +58,15 @@ def get_leaderboard(request, lid):
             return JsonResponse(data={'success': 'true', 'leaderboard': leaderboard_serialized.data})
         except Exception as e:
             print(str(e))
+
+@csrf_exempt
+@api_view(['GET'])
+def list_leaderboards(request):
+    user_id = 5
+    user = User.objects.get(id=user_id)
+    custom_user = user.custom_user
+    teams = Team.objects.filter(players__in=[custom_user])
+    leaderboards = Leaderboard.objects.filter(team__in=teams)
+    serialized_leaderboards = LeaderboardIDSerializer(leaderboards, many=True)
+    return JsonResponse(data={'success': 'true', 'leaderboards': serialized_leaderboards.data})
+

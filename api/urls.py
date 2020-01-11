@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import login, register, get_leaderboard
+from .views import login, register, get_leaderboard, list_leaderboards
 
 urlpatterns = [
     path('login', login),
     path('register', register),
-    path('leaderboard/<str:lid>', get_leaderboard)
+    path('leaderboard/<str:lid>', get_leaderboard),
+    path('leaderboard/', list_leaderboards),
 ]
