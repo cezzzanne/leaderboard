@@ -5,6 +5,6 @@ from .views import login, register, get_leaderboard, list_leaderboards
 urlpatterns = [
     path('login', login),
     path('register', register),
-    path('leaderboard/<str:lid>', get_leaderboard),
-    path('leaderboard/', list_leaderboards),
+    path('leaderboard/<int:lid>', get_leaderboard),
+    path('leaderboard/user/<int:user_id>', list_leaderboards),
 ]
