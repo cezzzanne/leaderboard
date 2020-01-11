@@ -47,14 +47,49 @@ def register(request):
             print(str(e))
 
 
+@api_view(['POST'])
+@csrf_exempt
+def add_score(request):
+    if request.method == 'POST':
+        try:
+            user_id = request.data['userID']
+            leaderboard_id = request.data['leaderboardID']
+            points = request.data['points']
+            user = User.objects.get(id=user_id)
+            custom_user = CustomUser.objects.get(user=user)
+            leaderboard = Leaderboard.objects.get(id=leaderboard_id)
+            user_score = UserScore(points=points, leaderboard=leaderboard, custom_user=custom_user)
+            user_score.save()
+            leaderboard_serialized = LeaderboardSerializer(leaderboard)
+            return JsonResponse(data={'success': 'true', 'leaderboard': leaderboard_serialized.data})
+        except Exception as e:
+            print(str(e))
+
+
+
 @csrf_exempt
 @api_view(['GET'])
 def get_leaderboard(request, lid):
     if request.method == 'GET':
         try:
             team = Team.objects.get(id=lid)
-            leaderboard = Leaderboard.objects.filter(team=team).first()
-            leaderboard_serialized = LeaderboardSerializer(leaderboard)
+            leaderboard = Leaderboard.objects.filter(team=team)
+            leaderboard_serialized = LeaderboardSerializer(leaderboard, many=True)
+            return JsonResponse(data={'success': 'true', 'leaderboard': leaderboard_serialized.data})
+        except Exception as e:
+            print(str(e))
+
+
+@csrf_exempt
+@api_view(['POST'])
+def add_leaderboard(request):
+    if request.method == 'POST':
+        try:
+            team = Team.objects.get(id=request.data['teamID'])
+            leaderboard = Leaderboard(team=team)
+            leaderboard.save()
+            leaderboard_s = Leaderboard.objects.filter(team=team)
+            leaderboard_serialized = LeaderboardSerializer(leaderboard_s, many=True)
             return JsonResponse(data={'success': 'true', 'leaderboard': leaderboard_serialized.data})
         except Exception as e:
             print(str(e))

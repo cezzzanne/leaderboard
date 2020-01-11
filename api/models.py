@@ -24,8 +24,8 @@ class Team(models.Model):
 
 
 class Leaderboard(models.Model):
-    end_date = models.DateField()
-    submit_deadline = models.DateField()
+    end_date = models.DateField(auto_now=True)
+    submit_deadline = models.DateField(auto_now=True)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='leaderboards')
 
     def __str__(self):
