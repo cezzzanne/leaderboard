@@ -42,7 +42,11 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -53,7 +57,20 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'leaderboard.urls'
+ROOT_URLCONF = 'watermelonApi.urls'
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+)
 
 TEMPLATES = [
     {
@@ -71,21 +88,7 @@ TEMPLATES = [
     },
 ]
 
-CORS_ALLOW_CREDENTIALS = True
-
-CORS_ORIGIN_ALLOW_ALL = True
-
-CORS_ALLOW_METHODS = (
-    'DELETE',
-    'GET',
-    'OPTIONS',
-    'PATCH',
-    'POST',
-    'PUT',
-)
-
-
-WSGI_APPLICATION = 'leaderboard.wsgi.application'
+WSGI_APPLICATION = 'watermelonApi.wsgi.application'
 
 
 # Database
@@ -93,8 +96,12 @@ WSGI_APPLICATION = 'leaderboard.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'twise',
+        'USER': 'pablocs',
+        'PASSWORD': 'infinitum',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -116,18 +123,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'leaderboard',
-        'USER': 'pablocs',
-        'PASSWORD': 'infinitum',
-        'HOST': '',
-        'PORT': '',
-    }
-}
 
 
 db_from_env = dj_database_url.config()
@@ -153,12 +148,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
