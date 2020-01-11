@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from .models import CustomUser, Team, Leaderboard, UserScore
-from .serializers import LeaderboardSerializer
+from .serializers import LeaderboardSerializer, LeaderboardIDSerializer
 
 
 @csrf_exempt
@@ -54,7 +54,7 @@ def add_score(request):
         try:
             user_id = request.data['userID']
             leaderboard_id = request.data['leaderboardID']
-            points = request.data['points']
+            points = request.data['score']
             user = User.objects.get(id=user_id)
             custom_user = CustomUser.objects.get(user=user)
             leaderboard = Leaderboard.objects.get(id=leaderboard_id)
@@ -72,9 +72,8 @@ def add_score(request):
 def get_leaderboard(request, lid):
     if request.method == 'GET':
         try:
-            team = Team.objects.get(id=lid)
-            leaderboard = Leaderboard.objects.filter(team=team)
-            leaderboard_serialized = LeaderboardSerializer(leaderboard, many=True)
+            leaderboard = Leaderboard.objects.get(id=lid)
+            leaderboard_serialized = LeaderboardSerializer(leaderboard)
             return JsonResponse(data={'success': 'true', 'leaderboard': leaderboard_serialized.data})
         except Exception as e:
             print(str(e))
@@ -86,10 +85,22 @@ def add_leaderboard(request):
     if request.method == 'POST':
         try:
             team = Team.objects.get(id=request.data['teamID'])
-            leaderboard = Leaderboard(team=team)
+            name = request.data['lbname']
+            leaderboard = Leaderboard(team=team, name=name)
             leaderboard.save()
             leaderboard_s = Leaderboard.objects.filter(team=team)
             leaderboard_serialized = LeaderboardSerializer(leaderboard_s, many=True)
             return JsonResponse(data={'success': 'true', 'leaderboard': leaderboard_serialized.data})
         except Exception as e:
             print(str(e))
+
+@csrf_exempt
+@api_view(['GET'])
+def list_leaderboards(request, user_id):
+    user = User.objects.get(id=user_id)
+    custom_user = user.custom_user
+    teams = Team.objects.filter(players__in=[custom_user])
+    leaderboards = Leaderboard.objects.filter(team__in=teams)
+    serialized_leaderboards = LeaderboardIDSerializer(leaderboards, many=True)
+    return JsonResponse(data={'success': 'true', 'leaderboards': serialized_leaderboards.data})
+
