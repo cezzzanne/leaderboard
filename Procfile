@@ -1,1 +1,1 @@
-web: daphne leaderboard.asgi:application --port $PORT --bind 0.0.0.0 -v2
+web: gunicorn leaderboard.wsgi --log-file -
