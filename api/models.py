@@ -27,9 +27,10 @@ class Leaderboard(models.Model):
     end_date = models.DateField()
     submit_deadline = models.DateField()
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='leaderboards')
+    name = models.CharField(max_length=150, default="Leaderboard")
 
     def __str__(self):
-        return self.team.name
+        return self.name
 
 
 class UserScore(models.Model):

@@ -36,3 +36,7 @@ class LeaderboardSerializer(serializers.ModelSerializer):
         model = Leaderboard
         fields = '__all__'
 
+class LeaderboardIDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Leaderboard
+        fields = ('id', 'name')
