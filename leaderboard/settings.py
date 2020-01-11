@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'leaderboard.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'twise',
+        'NAME': 'leaderboard',
         'USER': 'pablocs',
         'PASSWORD': 'infinitum',
         'HOST': '',
