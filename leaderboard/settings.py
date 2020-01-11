@@ -57,7 +57,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'watermelonApi.urls'
+ROOT_URLCONF = 'leaderboard.urls'
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -88,7 +88,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'watermelonApi.wsgi.application'
+WSGI_APPLICATION = 'leaderboard.wsgi.application'
 
 
 # Database
