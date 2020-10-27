@@ -8,7 +8,7 @@ Pillow==5.1.0
 stripe==2.10.1    
 asn1crypto==0.24.0
 cffi==1.11.5
-cryptography==2.5
+cryptography==3.2
 django-webpush==0.2.7
 http-ece==1.0.5
 py-vapid==1.4.0
