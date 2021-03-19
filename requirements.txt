@@ -15,7 +15,7 @@ py-vapid==1.4.0
 pycparser==2.19
 pywebpush==1.6.0
 django-cors-headers==2.4.0
-djangorestframework==3.9.0
+djangorestframework==3.11.2
 channels===2.1.7
 daphne===2.2.5
 channels-redis==2.4.0
